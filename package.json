@@ -1,0 +1,13 @@
+{
+  "name": "ambot savo-school",
+  "version": "2.0.0",
+  "description": "AmboTsavo Schools - Production-grade Full Stack School Platform",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "sqlite3": "^5.1.7"
+  }
+}

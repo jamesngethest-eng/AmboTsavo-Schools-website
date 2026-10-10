@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AmboTsavo Schools | Excellence in Education</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { primary: '#1e3a8a', secondary: '#d97706', accent: '#0284c7', dark: '#0f172a', light: '#f8fafc' },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], serif: ['Playfair Display', 'serif'] }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body class="font-sans text-dark bg-light antialiased selection:bg-secondary selection:text-white">
+
+    <!-- Announcement Bar -->
+    <div class="bg-primary text-white text-xs sm:text-sm py-2 px-4">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+            <span><i class="fas fa-phone-alt text-secondary mr-2"></i> +254 700 000 000 | <i class="fas fa-envelope text-secondary mr-2"></i> info@ambot savo.ac.ke</span>
+            <span class="bg-secondary/20 text-secondary px-3 py-0.5 rounded-full font-medium">Admissions Open 2027</span>
+        </div>
+    </div>
+
+    <!-- Main Public Navbar -->
+    <nav id="navbar" class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+            <a href="#home" class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white shadow">
+                    <i class="fas fa-graduation-cap text-2xl text-secondary"></i>
+                </div>
+                <div>
+                    <span class="block font-serif text-xl sm:text-2xl font-bold text-primary">AmboTsavo Schools</span>
+                    <span class="block text-xs uppercase tracking-widest font-semibold text-secondary">Academy</span>
+                </div>
+            </a>
+            <div class="hidden lg:flex items-center space-x-8">
+                <a href="#home" class="font-medium text-primary hover:text-secondary">Home</a>
+                <a href="#about" class="font-medium text-slate-600 hover:text-secondary">About School</a>
+                <a href="#academics" class="font-medium text-slate-600 hover:text-secondary">Academics</a>
+                <a href="#campus" class="font-medium text-slate-600 hover:text-secondary">Campus Life</a>
+                <a href="#auth-section" class="font-bold text-secondary">Student & Parent Portal</a>
+            </div>
+            <a href="#auth-section" class="hidden sm:inline-flex items-center px-5 py-2.5 bg-secondary hover:bg-amber-700 text-white font-semibold rounded-lg shadow">
+                Portal Login / Register
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Public Website Wrapper -->
+    <div id="public-website">
+        <!-- Hero Section -->
+        <section id="home" class="relative bg-primary min-h-[85vh] flex items-center overflow-hidden">
+            <div class="absolute inset-0 z-0 opacity-25 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1600&auto=format&fit=crop');"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-transparent z-0"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 w-full">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-7 space-y-6 text-white" data-aos="fade-right">
+                        <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-secondary/30 border border-secondary/40 text-secondary text-sm font-semibold">
+                            <i class="fas fa-star text-xs"></i> Premier Institution of Excellence
+                        </span>
+                        <h1 class="text-4xl sm:text-6xl font-serif font-bold leading-tight">
+                            Shaping Minds, <br><span class="text-secondary">Inspiring Futures</span>
+                        </h1>
+                        <p class="text-lg sm:text-xl text-slate-200 max-w-2xl font-light">
+                            Welcome to AmboTsavo Schools. Where rigorous academics meet character development, creativity, and modern technology.
+                        </p>
+                        <div class="flex flex-wrap gap-4 pt-4">
+                            <a href="#auth-section" class="px-8 py-4 bg-secondary hover:bg-amber-700 text-white font-semibold rounded-xl shadow-lg transition flex items-center gap-3">
+                                Access Portal <i class="fas fa-arrow-right text-sm"></i>
+                            </a>
+                            <a href="#about" class="px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/30 font-semibold rounded-xl backdrop-blur-sm transition">
+                                About Our School
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Inquiry Card -->
+                    <div class="lg:col-span-5" data-aos="fade-left">
+                        <div class="bg-white rounded-2xl shadow-2xl p-6 sm:p-8 border border-slate-100">
+                            <h3 class="text-2xl font-serif font-bold text-primary text-center">Quick Admissions Inquiry</h3>
+                            <p class="text-sm text-slate-500 text-center mb-6">Get in touch with our admissions office</p>
+                            <form onsubmit="alert('Inquiry received! We will contact you shortly.'); event.target.reset(); return false;" class="space-y-4">
+                                <input type="text" required placeholder="Parent Full Name" class="w-full px-4 py-3 rounded-lg border text-sm outline-none focus:border-primary">
+                                <input type="email" required placeholder="Email Address" class="w-full px-4 py-3 rounded-lg border text-sm outline-none focus:border-primary">
+                                <select required class="w-full px-4 py-3 rounded-lg border text-sm bg-white outline-none focus:border-primary">
+                                    <option value="">Grade Level of Interest</option>
+                                    <option>Kindergarten</option><option>PP1</option><option>PP2</option>
+                                    <option>Grade 1</option><option>Grade 2</option><option>Grade 3</option><option>Grade 4</option><option>Grade 5</option>
+                                    <option>Grade 6</option><option>Grade 7</option><option>Grade 8</option><option>Grade 9</option><option>Grade 10</option><option>Grade 11</option><option>Grade 12</option>
+                                </select>
+                                <button type="submit" class="w-full py-3.5 bg-primary text-white font-semibold rounded-lg shadow">Request Information</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About School Section -->
+        <section id="about" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                    <span class="text-secondary font-semibold uppercase tracking-wider text-sm">Welcome to AmboTsavo Schools</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-primary mt-2">Nurturing Leaders of Tomorrow</h2>
+                    <div class="w-20 h-1 bg-secondary mx-auto mt-4 rounded-full"></div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div class="lg:col-span-6 relative" data-aos="fade-right">
+                        <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=1000&auto=format&fit=crop" class="w-full h-[400px] object-cover rounded-2xl shadow-2xl">
+                    </div>
+                    <div class="lg:col-span-6 space-y-6" data-aos="fade-left">
+                        <h3 class="text-2xl font-serif font-bold text-primary">A Legacy of Academic Rigor & Holistic Growth</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            At AmboTsavo Schools, we believe every child possesses unique potential. Founded on integrity, perseverance, and curiosity, our institution provides a vibrant learning ecosystem where students excel academically and socially.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Academic Pathways -->
+        <section id="academics" class="py-20 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                    <span class="text-secondary font-semibold uppercase tracking-wider text-sm">Academic Pathways</span>
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-primary mt-2">Programs Tailored for Every Stage</h2>
+                    <div class="w-20 h-1 bg-secondary mx-auto mt-4 rounded-full"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg p-6 border border-slate-100">
+                        <span class="text-xs font-bold text-secondary uppercase">Ages 3 - 5</span>
+                        <h3 class="text-xl font-serif font-bold text-primary mt-1">Kindergarten, PP1 & PP2</h3>
+                        <p class="text-slate-600 text-sm mt-2">Foundational cognitive, motor, and inquiry-based play learning.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg p-6 border border-slate-100">
+                        <span class="text-xs font-bold text-secondary uppercase">Grades 1 - 6</span>
+                        <h3 class="text-xl font-serif font-bold text-primary mt-1">Primary Section</h3>
+                        <p class="text-slate-600 text-sm mt-2">Comprehensive core subjects, STEM enrichment, arts, and languages.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-lg p-6 border border-slate-100">
+                        <span class="text-xs font-bold text-secondary uppercase">Grades 7 - 12</span>
+                        <h3 class="text-xl font-serif font-bold text-primary mt-1">Junior & Senior High</h3>
+                        <p class="text-slate-600 text-sm mt-2">Specialized tracks, university preparation, and leadership development.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AUTHENTICATION SECTION (STUDENTS & PARENTS) -->
+        <section id="auth-section" class="py-20 bg-slate-900 text-white border-t border-slate-800">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-serif font-bold">Student & Parent Portal Gateways</h2>
+                    <p class="text-slate-400 text-sm mt-2">Login with your approved credentials or submit a new registration request for Admin approval.</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- LOGIN FORM -->
+                    <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-xl space-y-4">
+                        <h3 class="text-xl font-serif font-bold text-secondary"><i class="fas fa-sign-in-alt mr-2"></i> Account Login</h3>
+                        <form onsubmit="handleLogin(event)" class="space-y-4 text-sm">
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Select Role</label>
+                                <select id="login-role" required class="w-full p-3 bg-slate-900 border border-slate-700 rounded text-white outline-none">
+                                    <option value="student">Student</option>
+                                    <option value="parent">Parent</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Phone Number</label>
+                                <input type="tel" id="login-phone" required placeholder="0700000000" class="w-full p-3 bg-slate-900 border border-slate-700 rounded text-white outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Password</label>
+                                <input type="password" id="login-password" required placeholder="••••••••" class="w-full p-3 bg-slate-900 border border-slate-700 rounded text-white outline-none">
+                            </div>
+                            <button type="submit" class="w-full py-3.5 bg-secondary hover:bg-amber-700 text-white font-semibold rounded shadow transition">Login to Portal</button>
+                        </form>
+                    </div>
+
+                    <!-- SIGNUP / REGISTRATION FORM -->
+                    <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-xl space-y-4">
+                        <h3 class="text-xl font-serif font-bold text-accent"><i class="fas fa-user-plus mr-2"></i> Register New Student / Parent</h3>
+                        <form onsubmit="handleRegister(event)" class="space-y-3 text-sm">
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">I am registering as</label>
+                                    <select id="reg-role" onchange="toggleRegFields()" required class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded text-white outline-none">
+                                        <option value="student">Student</option>
+                                        <option value="parent">Parent</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Grade Level</label>
+                                    <select id="reg-grade" required class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded text-white outline-none">
+                                        <option value="Kindergarten">Kindergarten</option><option value="PP1">PP1</option><option value="PP2">PP2</option>
+                                        <option value="Grade 1">Grade 1</option><option value="Grade 2">Grade 2</option><option value="Grade 3">Grade 3</option>
+                                        <option value="Grade 4">Grade 4</option><option value="Grade 5">Grade 5</option><option value="Grade 6">Grade 6</option>
+                                        <option value="Grade 7">Grade 7</option><option value="Grade 8">Grade 8</option><option value="Grade 9">Grade 9</option>
+                                        <option value="Grade 10">Grade 10</option><option value="Grade 11">Grade 11</option><option value="Grade 12">Grade 12</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Your Full Name</label>
+                                <input type="text" id="reg-name" required placeholder="Full Name" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded text-white outline-none">
+                            </div>
+                            <div id="parent-child-field" class="hidden">
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Child's Full Name</label>
+                                <input type="text" id="reg-child" placeholder="Child's Name" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded text-white outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Phone Number</label>
+                                <input type="tel" id="reg-phone" required placeholder="Phone Number" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded text-white outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-1">Password</label>
+                                <input type="password" id="reg-password" required placeholder="Create Password" class="w-full p-2.5 bg-slate-900 border border-slate-700 rounded text-white outline-none">
+                            </div>
+                            <button type="submit" class="w-full py-3 bg-accent hover:bg-sky-700 text-white font-semibold rounded shadow transition">Submit for Admin Approval</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-dark text-slate-400 py-8 border-t border-slate-800 text-center text-xs">
+            <p>&copy; 2026 AmboTsavo Schools. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- STUDENT DASHBOARD (Strictly NO Community)  -->
+    <!-- ========================================== -->
+    <div id="student-dashboard" class="hidden min-h-screen bg-slate-100">
+        <nav class="bg-primary text-white shadow-md p-4">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <div>
+                    <h1 class="text-xl font-serif font-bold" id="st-dash-name">Student Portal</h1>
+                    <p class="text-xs text-secondary" id="st-dash-grade"></p>
+                </div>
+                <button onclick="logout()" class="px-4 py-2 bg-white/10 hover:bg-white/20 rounded text-xs font-semibold">Logout</button>
+            </div>
+        </nav>
+
+        <div class="max-w-7xl mx-auto p-6 space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Homework List -->
+                <div class="bg-white p-6 rounded-2xl shadow border border-slate-200">
+                    <h3 class="font-serif font-bold text-lg text-primary mb-4"><i class="fas fa-book text-secondary mr-2"></i> Class Homework</h3>
+                    <div id="st-hw-container" class="space-y-3"></div>
+                </div>
+
+                <!-- Exam Results -->
+                <div class="bg-white p-6 rounded-2xl shadow border border-slate-200">
+                    <h3 class="font-serif font-bold text-lg text-primary mb-4"><i class="fas fa-file-alt text-secondary mr-2"></i> Examination Results</h3>
+                    <div id="st-res-container" class="space-y-2"></div>
+                </div>
+
+                <!-- Fee Statement & Arrears -->
+                <div class="bg-white p-6 rounded-2xl shadow border border-slate-200">
+                    <h3 class="font-serif font-bold text-lg text-primary mb-4"><i class="fas fa-receipt text-secondary mr-2"></i> School Fees & Arrears</h3>
+                    <div id="st-fee-container" class="space-y-3 text-sm"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- PARENT DASHBOARD (Includes Community Feed) -->
+    <!-- ========================================== -->
+    <div id="parent-dashboard" class="hidden min-h-screen bg-slate-100">
+        <nav class="bg-dark text-white shadow-md p-4">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <div>
+                    <h1 class="text-xl font-serif font-bold" id="pr-dash-name">Parent Community & Child Monitoring Portal</h1>
+                    <p class="text-xs text-secondary" id="pr-dash-sub"></p>
+                </div>
+                <button onclick="logout()" class="px-4 py-2 bg-white/10 hover:bg-white/20 rounded text-xs font-semibold">Logout</button>
+            </div>
+        </nav>
+
+        <div class="max-w-7xl mx-auto p-6 space-y-8">
+            <!-- Child Details -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow border border-slate-200">
+                    <h3 class="font-serif font-bold text-lg text-primary mb-4"><i class="fas fa-graduation-cap text-secondary mr-2"></i> Child Exam Results</h3>
+                    <div id="pr-res-container" class="space-y-2"></div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow border border-slate-200">
+                    <h3 class="font-serif font-bold text-lg text-primary mb-4"><i class="fas fa-wallet text-secondary mr-2"></i> Fees Statement & Arrears</h3>
+                    <div id="pr-fee-container" class="space-y-3 text-sm"></div>
+                </div>
+            </div>
+
+            <!-- Parent Community Board (Parents + Teachers) -->
+            <div class="bg-white p-6 rounded-2xl shadow border border-slate-200 space-y-6">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-serif font-bold text-xl text-primary"><i class="fas fa-users text-secondary mr-2"></i> School Parents & Teachers Community Board</h3>
+                    <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full">Parents & Teachers Allowed</span>
+                </div>
+
+                <div class="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-3">
+                    <textarea id="community-post-input" rows="3" class="w-full p-3 border rounded-lg text-sm outline-none" placeholder="Share a notice or post a comment for fellow parents and teachers..."></textarea>
+                    <button onclick="submitCommunityPost()" class="px-5 py-2.5 bg-secondary text-white font-semibold text-xs rounded shadow">Post to Community</button>
+                </div>
+
+                <div id="community-feed" class="space-y-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+
+        let currentUser = null;
+
+        function toggleRegFields() {
+            const role = document.getElementById('reg-role').value;
+            document.getElementById('parent-child-field').classList.toggle('hidden', role !== 'parent');
+        }
+
+        async function handleRegister(e) {
+            e.preventDefault();
+            const role = document.getElementById('reg-role').value;
+            const grade = document.getElementById('reg-grade').value;
+            const name = document.getElementById('reg-name').value;
+            const childName = document.getElementById('reg-child').value;
+            const phone = document.getElementById('reg-phone').value;
+            const password = document.getElementById('reg-password').value;
+
+            const res = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ role, name, childName, grade, phone, password })
+            });
+            const data = await res.json();
+            alert(data.message);
+            e.target.reset();
+        }
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const role = document.getElementById('login-role').value;
+            const phone = document.getElementById('login-phone').value;
+            const password = document.getElementById('login-password').value;
+
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ role, phone, password })
+            });
+            const data = await res.json();
+            if (data.success) {
+                currentUser = data.user;
+                renderDashboard();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        async function renderDashboard() {
+            document.getElementById('public-website').classList.add('hidden');
+            if (currentUser.role === 'student') {
+                document.getElementById('student-dashboard').classList.remove('hidden');
+                document.getElementById('st-dash-name').innerText = `Student: ${currentUser.name}`;
+                document.getElementById('st-dash-grade').innerText = `Grade: ${currentUser.grade}`;
+
+                // Fetch Homework
+                const hwRes = await fetch(`/api/homework?grade=${encodeURIComponent(currentUser.grade)}`);
+                const hw = await hwRes.json();
+                document.getElementById('st-hw-container').innerHTML = hw.length ? hw.map(h => `
+                    <div class="p-3 bg-slate-50 border rounded text-xs space-y-1">
+                        <b class="text-accent">${h.subject}</b>
+                        <h4 class="font-bold text-primary">${h.title}</h4>
+                        <p class="text-slate-600">${h.description}</p>
+                        <span class="text-amber-600 block font-bold">Due: ${h.dueDate}</span>
+                    </div>
+                `).join('') : '<p class="text-xs text-slate-400">No active homework assigned.</p>';
+
+                // Fetch Marks
+                const resRes = await fetch(`/api/results?studentName=${encodeURIComponent(currentUser.name)}&grade=${encodeURIComponent(currentUser.grade)}`);
+                const marks = await resRes.json();
+                document.getElementById('st-res-container').innerHTML = marks.length ? marks.map(m => `
+                    <div class="p-2 bg-slate-50 border rounded text-xs flex justify-between">
+                        <span><b>${m.subject}</b> (${m.examType})</span>
+                        <b class="text-emerald-700">${m.score} (${m.gradeLetter})</b>
+                    </div>
+                `).join('') : '<p class="text-xs text-slate-400">No exam marks published.</p>';
+
+                // Fetch Fees
+                const feeRes = await fetch(`/api/fees?studentName=${encodeURIComponent(currentUser.name)}&grade=${encodeURIComponent(currentUser.grade)}`);
+                const fee = await feeRes.json();
+                document.getElementById('st-fee-container').innerHTML = `
+                    <p><b>Tuition Fee:</b> Ksh ${fee.tuition}</p>
+                    <p class="text-red-600"><b>Arrears Outstanding:</b> Ksh ${fee.arrears || '0.00'}</p>
+                    <p><b>Total Balance:</b> Ksh ${fee.balance}</p>
+                    <p><b>Status:</b> <span class="font-bold text-emerald-600">${fee.status}</span></p>
+                `;
+
+            } else if (currentUser.role === 'parent') {
+                document.getElementById('parent-dashboard').classList.remove('hidden');
+                document.getElementById('pr-dash-name').innerText = `Parent Portal: ${currentUser.name}`;
+                document.getElementById('pr-dash-sub').innerText = `Child: ${currentUser.childName} (${currentUser.grade})`;
+
+                // Fetch Child Marks
+                const resRes = await fetch(`/api/results?studentName=${encodeURIComponent(currentUser.childName)}&grade=${encodeURIComponent(currentUser.grade)}`);
+                const marks = await resRes.json();
+                document.getElementById('pr-res-container').innerHTML = marks.length ? marks.map(m => `
+                    <div class="p-2 bg-slate-50 border rounded text-xs flex justify-between">
+                        <span>${m.subject} - ${m.examType}</span>
+                        <b>${m.score} (${m.gradeLetter})</b>
+                    </div>
+                `).join('') : '<p class="text-xs text-slate-400">No marks recorded yet.</p>';
+
+                // Fetch Fees
+                const feeRes = await fetch(`/api/fees?studentName=${encodeURIComponent(currentUser.childName)}&grade=${encodeURIComponent(currentUser.grade)}`);
+                const fee = await feeRes.json();
+                document.getElementById('pr-fee-container').innerHTML = `
+                    <p><b>Tuition Fee:</b> Ksh ${fee.tuition}</p>
+                    <p class="text-red-600"><b>Arrears Outstanding:</b> Ksh ${fee.arrears || '0.00'}</p>
+                    <p><b>Net Balance Due:</b> Ksh ${fee.balance}</p>
+                    <button onclick="alert('Downloading stamped statement PDF...')" class="mt-2 px-3 py-1.5 bg-primary text-white text-xs rounded">Download Fee Statement</button>
+                `;
+
+                loadCommunityFeed();
+            }
+        }
+
+        async function loadCommunityFeed() {
+            const res = await fetch('/api/community');
+            const posts = await res.json();
+            document.getElementById('community-feed').innerHTML = posts.map(p => `
+                <div class="p-4 bg-slate-50 border rounded-xl space-y-1">
+                    <div class="flex justify-between text-xs text-slate-500">
+                        <span class="font-bold text-primary">${p.authorName} (${p.role.toUpperCase()})</span>
+                        <span>${p.timestamp}</span>
+                    </div>
+                    <p class="text-sm text-slate-800">${p.content}</p>
+                </div>
+            `).join('');
+        }
+
+        async function submitCommunityPost() {
+            const input = document.getElementById('community-post-input');
+            const content = input.value.trim();
+            if (!content) return alert('Enter a message first.');
+
+            await fetch('/api/community', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ authorName: currentUser.name, role: currentUser.role, content })
+            });
+            input.value = '';
+            loadCommunityFeed();
+        }
+
+        function logout() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>

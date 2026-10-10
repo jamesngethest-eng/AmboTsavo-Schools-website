@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AmboTsavo Schools | Master Administration Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-100 font-sans text-dark">
+
+    <!-- Admin Auth Box -->
+    <div id="admin-auth-box" class="min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full space-y-4 border">
+            <h2 class="text-2xl font-serif font-bold text-primary text-center">Admin Secure Gateway</h2>
+            <form onsubmit="adminLogin(event)" class="space-y-3 text-sm">
+                <input type="text" id="adm-user" required placeholder="Admin Username" class="w-full p-3 border rounded outline-none">
+                <input type="password" id="adm-pass" required placeholder="Password" class="w-full p-3 border rounded outline-none">
+                <button type="submit" class="w-full py-3 bg-primary text-white font-semibold rounded shadow">Login Admin</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Workspace -->
+    <div id="admin-workspace" class="hidden min-h-screen p-8 space-y-8 max-w-7xl mx-auto">
+        <div class="bg-slate-900 text-white p-6 rounded-2xl flex justify-between items-center shadow">
+            <div>
+                <h1 class="text-2xl font-serif font-bold">Master Administration Panel</h1>
+                <p class="text-xs text-amber-500">Global Approvals, Master User Management, and Data Controls</p>
+            </div>
+            <button onclick="location.reload()" class="px-4 py-2 bg-white/10 rounded text-xs font-bold">Exit Admin</button>
+        </div>
+
+        <!-- Approvals Queue -->
+        <div class="bg-white p-6 rounded-2xl shadow border space-y-4">
+            <h3 class="font-serif font-bold text-xl text-primary"><i class="fas fa-user-clock mr-2 text-amber-600"></i> Pending Registration Approvals</h3>
+            <div id="pending-queue" class="space-y-2"></div>
+        </div>
+
+        <!-- User Directory & Master Edit/Delete -->
+        <div class="bg-white p-6 rounded-2xl shadow border space-y-4">
+            <h3 class="font-serif font-bold text-xl text-primary"><i class="fas fa-users-cog mr-2"></i> All Registered Accounts</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-slate-50 text-xs text-slate-600 uppercase">
+                        <tr><th class="p-3">ID</th><th class="p-3">Role</th><th class="p-3">Name</th><th class="p-3">Grade</th><th class="p-3">Phone</th><th class="p-3">Status</th><th class="p-3">Actions</th></tr>
+                    </thead>
+                    <tbody id="user-directory-body" class="divide-y divide-slate-100"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function adminLogin(e) {
+            e.preventDefault();
+            const u = document.getElementById('adm-user').value;
+            const p = document.getElementById('adm-pass').value;
+            if (u === 'admin' && p === 'admin123') {
+                document.getElementById('admin-auth-box').classList.add('hidden');
+                document.getElementById('admin-workspace').classList.remove('hidden');
+                loadData();
+            } else {
+                alert('Invalid Credentials. Use admin / admin123');
+            }
+        }
+
+        async function loadData() {
+            const res = await fetch('/api/admin/all');
+            const data = await res.json();
+
+            // Pending Queue
+            const pending = data.users.filter(u => u.status === 'pending');
+            document.getElementById('pending-queue').innerHTML = pending.length ? pending.map(u => `
+                <div class="p-3 bg-slate-50 border rounded flex justify-between items-center text-xs">
+                    <span><b>${u.name}</b> (${u.role.toUpperCase()} | Grade: ${u.grade} | Phone: ${u.phone})</span>
+                    <button onclick="approveUser(${u.id})" class="px-3 py-1 bg-emerald-600 text-white font-bold rounded">Approve Account</button>
+                </div>
+            `).join('') : '<p class="text-xs text-slate-400">No pending approvals in queue.</p>';
+
+            // Directory
+            document.getElementById('user-directory-body').innerHTML = data.users.map(u => `
+                <tr>
+                    <td class="p-3 font-bold text-xs">${u.id}</td>
+                    <td class="p-3 font-bold text-xs uppercase text-accent">${u.role}</td>
+                    <td class="p-3 font-semibold">${u.name}</td>
+                    <td class="p-3">${u.grade || 'N/A'}</td>
+                    <td class="p-3">${u.phone}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 rounded text-xs ${u.status === 'approved' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${u.status}</span></td>
+                    <td class="p-3 space-x-2">
+                        <button onclick="editUser(${u.id}, '${u.name}', '${u.grade}', '${u.phone}', '${u.role}')" class="px-2 py-1 bg-primary text-white text-xs rounded">Edit</button>
+                        <button onclick="deleteUser(${u.id})" class="px-2 py-1 bg-red-600 text-white text-xs rounded font-bold">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        async function approveUser(id) {
+            await fetch('/api/admin/approve-user', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id })
+            });
+            loadData();
+        }
+
+        async function deleteUser(id) {
+            if (!confirm('Delete user permanently?')) return;
+            await fetch('/api/admin/delete-user', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id })
+            });
+            loadData();
+        }
+
+        async function editUser(id, oldName, oldGrade, oldPhone, oldRole) {
+            const name = prompt('Edit Name:', oldName) || oldName;
+            const grade = prompt('Edit Grade:', oldGrade) || oldGrade;
+            const phone = prompt('Edit Phone:', oldPhone) || oldPhone;
+            const role = prompt('Edit Role (student/parent/teacher):', oldRole) || oldRole;
+
+            await fetch('/api/admin/update-user', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id, name, grade, phone, role })
+            });
+            loadData();
+        }
+    </script>
+</body>
+</html>

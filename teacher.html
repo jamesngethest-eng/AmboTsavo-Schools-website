@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AmboTsavo Schools | Teacher Portal Gateway</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: { colors: { primary: '#1e3a8a', secondary: '#d97706', dark: '#0f172a' } }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-100 font-sans text-dark antialiased">
+
+    <!-- Teacher Auth Modal Screen -->
+    <div id="teacher-auth-screen" class="min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full space-y-4 border">
+            <div class="text-center">
+                <div class="w-12 h-12 bg-emerald-600 text-white rounded-xl flex items-center justify-center mx-auto text-xl mb-2 font-bold"><i class="fas fa-chalkboard-teacher"></i></div>
+                <h2 class="text-2xl font-serif font-bold text-primary">Teacher Portal Access</h2>
+                <p class="text-xs text-slate-500 mt-1">Sign in with your approved teacher credentials</p>
+            </div>
+            <form onsubmit="teacherLogin(event)" class="space-y-3 text-sm">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Phone Number</label>
+                    <input type="tel" id="tch-phone" required placeholder="0700000000" class="w-full p-3 border rounded outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Password</label>
+                    <input type="password" id="tch-password" required placeholder="••••••••" class="w-full p-3 border rounded outline-none">
+                </div>
+                <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded shadow transition">Login Teacher</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Teacher Workspace Dashboard -->
+    <div id="teacher-workspace" class="hidden min-h-screen p-8 space-y-8 max-w-7xl mx-auto">
+        <div class="bg-emerald-900 text-white p-6 rounded-2xl flex justify-between items-center shadow">
+            <div>
+                <h1 class="text-2xl font-serif font-bold" id="tch-name-title">Teacher Dashboard</h1>
+                <p class="text-xs text-emerald-300" id="tch-grade-title">Assigned Grade: Loading...</p>
+            </div>
+            <button onclick="location.reload()" class="px-4 py-2 bg-white/10 rounded text-xs font-semibold">Logout</button>
+        </div>
+
+        <!-- Grade Roster View -->
+        <div class="bg-white p-6 rounded-2xl shadow border space-y-4">
+            <h3 class="font-serif font-bold text-xl text-primary"><i class="fas fa-users-class mr-2"></i> Assigned Grade Classroom Roster</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-slate-50 text-xs text-slate-600 uppercase">
+                        <tr><th class="p-3">Student Name</th><th class="p-3">Grade</th><th class="p-3">Contact</th></tr>
+                    </thead>
+                    <tbody id="student-roster-body" class="divide-y divide-slate-100"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Homework Manager (With Delete) -->
+            <div class="bg-white p-6 rounded-2xl shadow border space-y-4">
+                <h3 class="font-serif font-bold text-xl text-primary"><i class="fas fa-book mr-2"></i> Class Homework Manager</h3>
+                <form onsubmit="postHomework(event)" class="space-y-3 text-sm">
+                    <input type="text" id="hw-subject" required placeholder="Subject (e.g. Mathematics)" class="w-full p-2.5 border rounded">
+                    <input type="text" id="hw-title" required placeholder="Assignment Title" class="w-full p-2.5 border rounded">
+                    <textarea id="hw-desc" required placeholder="Instructions" rows="2" class="w-full p-2.5 border rounded"></textarea>
+                    <input type="text" id="hw-date" required placeholder="Due Date (e.g. Oct 20)" class="w-full p-2.5 border rounded">
+                    <button type="submit" class="w-full py-2.5 bg-primary text-white font-semibold rounded">Publish Homework</button>
+                </form>
+
+                <h4 class="font-bold text-sm text-slate-700 pt-2">Active Homework (Delete Option):</h4>
+                <div id="hw-manage-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
+            </div>
+
+            <!-- Upload Exam Marks & Arrears -->
+            <div class="bg-white p-6 rounded-2xl shadow border space-y-6">
+                <!-- Record Exam Score -->
+                <div class="space-y-3">
+                    <h3 class="font-serif font-bold text-xl text-primary"><i class="fas fa-marker mr-2"></i> Upload Student Exam Results</h3>
+                    <form onsubmit="uploadMarks(event)" class="space-y-3 text-sm">
+                        <select id="res-student-select" required class="w-full p-2.5 border rounded bg-white"></select>
+                        <input type="text" id="res-subject" required placeholder="Subject Name" class="w-full p-2.5 border rounded">
+                        <input type="text" id="res-exam" required placeholder="Exam Type (e.g. Mid-Term)" class="w-full p-2.5 border rounded">
+                        <input type="text" id="res-score" required placeholder="Score (e.g. 88/100)" class="w-full p-2.5 border rounded">
+                        <input type="text" id="res-letter" required placeholder="Grade Letter (e.g. A)" class="w-full p-2.5 border rounded">
+                        <button type="submit" class="w-full py-2.5 bg-emerald-600 text-white font-semibold rounded">Record Exam Mark</button>
+                    </form>
+                </div>
+
+                <!-- Update Fees/Arrears -->
+                <div class="space-y-3 pt-4 border-t">
+                    <h3 class="font-serif font-bold text-lg text-primary"><i class="fas fa-wallet mr-2"></i> Update Fee Balance & Arrears</h3>
+                    <form onsubmit="updateFees(event)" class="space-y-3 text-sm">
+                        <select id="fee-student-select" required class="w-full p-2.5 border rounded bg-white"></select>
+                        <input type="text" id="fee-tuition" required placeholder="Tuition Fee (e.g. 45000)" class="w-full p-2.5 border rounded">
+                        <input type="text" id="fee-arrears" required placeholder="Arrears Outstanding (e.g. 5000)" class="w-full p-2.5 border rounded">
+                        <input type="text" id="fee-balance" required placeholder="Total Net Balance" class="w-full p-2.5 border rounded">
+                        <button type="submit" class="w-full py-2.5 bg-secondary text-white font-semibold rounded">Update Fee Record</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Community Board (Teachers + Parents) -->
+        <div class="bg-white p-6 rounded-2xl shadow border space-y-4">
+            <h3 class="font-serif font-bold text-xl text-primary"><i class="fas fa-comments mr-2"></i> Community Board Feed</h3>
+            <div class="p-4 bg-slate-50 rounded-xl space-y-3">
+                <textarea id="tch-comm-input" rows="2" class="w-full p-3 border rounded text-sm outline-none" placeholder="Post notice or announcement for parents..."></textarea>
+                <button onclick="postTeacherCommunity()" class="px-5 py-2 bg-emerald-600 text-white font-semibold text-xs rounded">Post Notice</button>
+            </div>
+            <div id="tch-comm-feed" class="space-y-3"></div>
+        </div>
+    </div>
+
+    <script>
+        let teacherData = null;
+
+        async function teacherLogin(e) {
+            e.preventDefault();
+            const phone = document.getElementById('tch-phone').value;
+            const password = document.getElementById('tch-password').value;
+
+            const res = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ role: 'teacher', phone, password })
+            });
+            const data = await res.json();
+            if (data.success) {
+                teacherData = data.user;
+                document.getElementById('teacher-auth-screen').classList.add('hidden');
+                document.getElementById('teacher-workspace').classList.remove('hidden');
+                document.getElementById('tch-name-title').innerText = `Teacher: ${teacherData.name}`;
+                document.getElementById('tch-grade-title').innerText = `Assigned Classroom: ${teacherData.grade}`;
+                loadClassroom();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        async function loadClassroom() {
+            // Load Roster
+            const res = await fetch(`/api/teacher/students?grade=${encodeURIComponent(teacherData.grade)}`);
+            const students = await res.json();
+            document.getElementById('student-roster-body').innerHTML = students.map(s => `
+                <tr>
+                    <td class="p-3 font-semibold text-primary">${s.name}</td>
+                    <td class="p-3">${s.grade}</td>
+                    <td class="p-3">${s.phone}</td>
+                </tr>
+            `).join('');
+
+            const opts = students.map(s => `<option value="${s.name}">${s.name}</option>`).join('');
+            document.getElementById('res-student-select').innerHTML = opts || '<option value="">No enrolled students</option>';
+            document.getElementById('fee-student-select').innerHTML = opts || '<option value="">No enrolled students</option>';
+
+            loadHomework();
+            loadCommunity();
+        }
+
+        async function postHomework(e) {
+            e.preventDefault();
+            const subject = document.getElementById('hw-subject').value;
+            const title = document.getElementById('hw-title').value;
+            const description = document.getElementById('hw-desc').value;
+            const dueDate = document.getElementById('hw-date').value;
+
+            await fetch('/api/homework', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ grade: teacherData.grade, subject, title, description, dueDate })
+            });
+            alert('Homework published.');
+            e.target.reset();
+            loadHomework();
+        }
+
+        async function loadHomework() {
+            const res = await fetch(`/api/homework?grade=${encodeURIComponent(teacherData.grade)}`);
+            const list = await res.json();
+            document.getElementById('hw-manage-list').innerHTML = list.map(h => `
+                <div class="p-2 bg-slate-50 border rounded text-xs flex justify-between items-center">
+                    <div><b>${h.subject}</b>: ${h.title}</div>
+                    <button onclick="deleteHomework(${h.id})" class="px-2 py-1 bg-red-600 text-white font-bold rounded">Delete</button>
+                </div>
+            `).join('');
+        }
+
+        async function deleteHomework(id) {
+            if (!confirm('Delete this homework item?')) return;
+            await fetch(`/api/homework/${id}`, { method: 'DELETE' });
+            loadHomework();
+        }
+
+        async function uploadMarks(e) {
+            e.preventDefault();
+            const studentName = document.getElementById('res-student-select').value;
+            const subject = document.getElementById('res-subject').value;
+            const examType = document.getElementById('res-exam').value;
+            const score = document.getElementById('res-score').value;
+            const gradeLetter = document.getElementById('res-letter').value;
+
+            await fetch('/api/results', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ studentName, grade: teacherData.grade, subject, examType, score, gradeLetter })
+            });
+            alert('Exam marks uploaded.');
+            e.target.reset();
+        }
+
+        async function updateFees(e) {
+            e.preventDefault();
+            const studentName = document.getElementById('fee-student-select').value;
+            const tuition = document.getElementById('fee-tuition').value;
+            const arrears = document.getElementById('fee-arrears').value;
+            const balance = document.getElementById('fee-balance').value;
+            const status = parseFloat(balance) > 0 ? 'Balance Due' : 'Cleared';
+
+            await fetch('/api/fees', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ studentName, grade: teacherData.grade, tuition, arrears, balance, status })
+            });
+            alert('Fee statement updated.');
+            e.target.reset();
+        }
+
+        async function loadCommunity() {
+            const res = await fetch('/api/community');
+            const posts = await res.json();
+            document.getElementById('tch-comm-feed').innerHTML = posts.map(p => `
+                <div class="p-3 bg-slate-50 border rounded text-xs">
+                    <b>${p.authorName} (${p.role})</b>: ${p.content}
+                </div>
+            `).join('');
+        }
+
+        async function postTeacherCommunity() {
+            const content = document.getElementById('tch-comm-input').value.trim();
+            if (!content) return;
+            await fetch('/api/community', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ authorName: teacherData.name, role: 'teacher', content })
+            });
+            document.getElementById('tch-comm-input').value = '';
+            loadCommunity();
+        }
+    </script>
+</body>
+</html>
