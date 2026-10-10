@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AmboTsavo Schools | Teacher Portal Gateway</title>
+    <title>Aura Crest | Teacher Portal Gateway</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -16,36 +16,85 @@
 </head>
 <body class="bg-slate-100 font-sans text-dark antialiased">
 
-    <!-- Teacher Auth Modal Screen -->
+    <!-- Teacher Auth Screen (Sign In & Login Tabs) -->
     <div id="teacher-auth-screen" class="min-h-screen flex items-center justify-center p-4">
-        <div class="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full space-y-4 border">
+        <div class="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full space-y-6 border border-slate-200">
             <div class="text-center">
-                <div class="w-12 h-12 bg-emerald-600 text-white rounded-xl flex items-center justify-center mx-auto text-xl mb-2 font-bold"><i class="fas fa-chalkboard-teacher"></i></div>
-                <h2 class="text-2xl font-serif font-bold text-primary">Teacher Portal Access</h2>
-                <p class="text-xs text-slate-500 mt-1">Sign in with your approved teacher credentials</p>
+                <div class="w-12 h-12 bg-emerald-600 text-white rounded-xl flex items-center justify-center mx-auto text-xl mb-2 font-bold shadow">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <h2 class="text-2xl font-serif font-bold text-primary">Teacher Portal Gateway</h2>
+                <p class="text-xs text-slate-500 mt-1">Sign in to request access or log in to your classroom</p>
             </div>
-            <form onsubmit="teacherLogin(event)" class="space-y-3 text-sm">
+
+            <!-- Tab Switcher -->
+            <div class="flex border-b border-slate-200 text-sm font-semibold">
+                <button id="tab-login-btn" onclick="switchTab('login')" class="flex-1 py-2.5 border-b-2 border-emerald-600 text-emerald-700">Teacher Login</button>
+                <button id="tab-signup-btn" onclick="switchTab('signup')" class="flex-1 py-2.5 text-slate-500 hover:text-emerald-600">Sign In (Register)</button>
+            </div>
+
+            <!-- TAB 1: TEACHER LOGIN FORM -->
+            <form id="form-teacher-login" onsubmit="teacherLogin(event)" class="space-y-4 text-sm">
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Phone Number</label>
-                    <input type="tel" id="tch-phone" required placeholder="0700000000" class="w-full p-3 border rounded outline-none">
+                    <input type="tel" id="tch-login-phone" required placeholder="0700000000" class="w-full p-3 border rounded-lg outline-none focus:border-emerald-600">
                 </div>
                 <div>
                     <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Password</label>
-                    <input type="password" id="tch-password" required placeholder="••••••••" class="w-full p-3 border rounded outline-none">
+                    <input type="password" id="tch-login-password" required placeholder="••••••••" class="w-full p-3 border rounded-lg outline-none focus:border-emerald-600">
                 </div>
-                <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded shadow transition">Login Teacher</button>
+                <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg shadow transition">Login to Classroom</button>
+            </form>
+
+            <!-- TAB 2: TEACHER SIGN IN / REGISTRATION FORM -->
+            <form id="form-teacher-signup" onsubmit="teacherSignup(event)" class="hidden space-y-3 text-sm">
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Teacher Full Name</label>
+                    <input type="text" id="tch-signup-name" required placeholder="e.g. Mr. David Otieno" class="w-full p-2.5 border rounded-lg outline-none focus:border-emerald-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Assigned Grade Level</label>
+                    <select id="tch-signup-grade" required class="w-full p-2.5 border rounded-lg bg-white outline-none focus:border-emerald-600">
+                        <option value="">-- Select Grade --</option>
+                        <option value="Kindergarten">Kindergarten</option>
+                        <option value="PP1">PP1 (Pre-Primary 1)</option>
+                        <option value="PP2">PP2 (Pre-Primary 2)</option>
+                        <option value="Grade 1">Grade 1</option>
+                        <option value="Grade 2">Grade 2</option>
+                        <option value="Grade 3">Grade 3</option>
+                        <option value="Grade 4">Grade 4</option>
+                        <option value="Grade 5">Grade 5</option>
+                        <option value="Grade 6">Grade 6</option>
+                        <option value="Grade 7">Grade 7</option>
+                        <option value="Grade 8">Grade 8</option>
+                        <option value="Grade 9">Grade 9</option>
+                        <option value="Grade 10">Grade 10</option>
+                        <option value="Grade 11">Grade 11</option>
+                        <option value="Grade 12">Grade 12</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Phone Number</label>
+                    <input type="tel" id="tch-signup-phone" required placeholder="0700000000" class="w-full p-2.5 border rounded-lg outline-none focus:border-emerald-600">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase text-slate-600 mb-1">Password</label>
+                    <input type="password" id="tch-signup-password" required placeholder="••••••••" class="w-full p-2.5 border rounded-lg outline-none focus:border-emerald-600">
+                </div>
+                <button type="submit" class="w-full py-3 bg-primary hover:bg-blue-900 text-white font-semibold rounded-lg shadow transition">Submit Sign-In Request</button>
+                <p class="text-[11px] text-slate-500 text-center">After submitting, the Admin will approve your account before you can log in.</p>
             </form>
         </div>
     </div>
 
-    <!-- Teacher Workspace Dashboard -->
+    <!-- Teacher Workspace Dashboard (Accessible after Admin Approval & Login) -->
     <div id="teacher-workspace" class="hidden min-h-screen p-8 space-y-8 max-w-7xl mx-auto">
         <div class="bg-emerald-900 text-white p-6 rounded-2xl flex justify-between items-center shadow">
             <div>
                 <h1 class="text-2xl font-serif font-bold" id="tch-name-title">Teacher Dashboard</h1>
                 <p class="text-xs text-emerald-300" id="tch-grade-title">Assigned Grade: Loading...</p>
             </div>
-            <button onclick="location.reload()" class="px-4 py-2 bg-white/10 rounded text-xs font-semibold">Logout</button>
+            <button onclick="location.reload()" class="px-4 py-2 bg-white/10 hover:bg-white/20 rounded text-xs font-semibold">Logout</button>
         </div>
 
         <!-- Grade Roster View -->
@@ -54,7 +103,7 @@
             <div class="overflow-x-auto">
                 <table class="w-full text-left text-sm">
                     <thead class="bg-slate-50 text-xs text-slate-600 uppercase">
-                        <tr><th class="p-3">Student Name</th><th class="p-3">Grade</th><th class="p-3">Contact</th></tr>
+                        <tr><th class="p-3">Student Name</th><th class="p-3">Grade</th><th class="p-3">Contact Phone</th></tr>
                     </thead>
                     <tbody id="student-roster-body" class="divide-y divide-slate-100"></tbody>
                 </table>
@@ -62,7 +111,7 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <!-- Homework Manager (With Delete) -->
+            <!-- Homework Manager (With Delete Option) -->
             <div class="bg-white p-6 rounded-2xl shadow border space-y-4">
                 <h3 class="font-serif font-bold text-xl text-primary"><i class="fas fa-book mr-2"></i> Class Homework Manager</h3>
                 <form onsubmit="postHomework(event)" class="space-y-3 text-sm">
@@ -106,9 +155,9 @@
             </div>
         </div>
 
-        <!-- Community Board (Teachers + Parents) -->
+        <!-- Community Board Feed -->
         <div class="bg-white p-6 rounded-2xl shadow border space-y-4">
-            <h3 class="font-serif font-bold text-xl text-primary"><i class="fas fa-comments mr-2"></i> Community Board Feed</h3>
+            <h3 class="font-serif font-bold text-xl text-primary"><i class="fas fa-comments mr-2"></i> Parents & Teachers Community Board Feed</h3>
             <div class="p-4 bg-slate-50 rounded-xl space-y-3">
                 <textarea id="tch-comm-input" rows="2" class="w-full p-3 border rounded text-sm outline-none" placeholder="Post notice or announcement for parents..."></textarea>
                 <button onclick="postTeacherCommunity()" class="px-5 py-2 bg-emerald-600 text-white font-semibold text-xs rounded">Post Notice</button>
@@ -120,10 +169,47 @@
     <script>
         let teacherData = null;
 
+        function switchTab(tab) {
+            const loginForm = document.getElementById('form-teacher-login');
+            const signupForm = document.getElementById('form-teacher-signup');
+            const loginBtn = document.getElementById('tab-login-btn');
+            const signupBtn = document.getElementById('tab-signup-btn');
+
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                loginBtn.className = 'flex-1 py-2.5 border-b-2 border-emerald-600 text-emerald-700 font-bold';
+                signupBtn.className = 'flex-1 py-2.5 text-slate-500 hover:text-emerald-600';
+            } else {
+                signupForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+                signupBtn.className = 'flex-1 py-2.5 border-b-2 border-emerald-600 text-emerald-700 font-bold';
+                loginBtn.className = 'flex-1 py-2.5 text-slate-500 hover:text-emerald-600';
+            }
+        }
+
+        async function teacherSignup(e) {
+            e.preventDefault();
+            const name = document.getElementById('tch-signup-name').value;
+            const grade = document.getElementById('tch-signup-grade').value;
+            const phone = document.getElementById('tch-signup-phone').value;
+            const password = document.getElementById('tch-signup-password').value;
+
+            const res = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ role: 'teacher', name, grade, phone, password })
+            });
+            const data = await res.json();
+            alert(data.message || 'Sign-in request submitted. Awaiting Admin Approval.');
+            e.target.reset();
+            switchTab('login');
+        }
+
         async function teacherLogin(e) {
             e.preventDefault();
-            const phone = document.getElementById('tch-phone').value;
-            const password = document.getElementById('tch-password').value;
+            const phone = document.getElementById('tch-login-phone').value;
+            const password = document.getElementById('tch-login-password').value;
 
             const res = await fetch('/api/auth/login', {
                 method: 'POST',
@@ -144,16 +230,15 @@
         }
 
         async function loadClassroom() {
-            // Load Roster
             const res = await fetch(`/api/teacher/students?grade=${encodeURIComponent(teacherData.grade)}`);
             const students = await res.json();
-            document.getElementById('student-roster-body').innerHTML = students.map(s => `
+            document.getElementById('student-roster-body').innerHTML = students.length ? students.map(s => `
                 <tr>
                     <td class="p-3 font-semibold text-primary">${s.name}</td>
                     <td class="p-3">${s.grade}</td>
                     <td class="p-3">${s.phone}</td>
                 </tr>
-            `).join('');
+            `).join('') : `<tr><td colspan="3" class="p-4 text-xs text-slate-400">No students enrolled in ${teacherData.grade} yet.</td></tr>`;
 
             const opts = students.map(s => `<option value="${s.name}">${s.name}</option>`).join('');
             document.getElementById('res-student-select').innerHTML = opts || '<option value="">No enrolled students</option>';
@@ -175,7 +260,7 @@
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ grade: teacherData.grade, subject, title, description, dueDate })
             });
-            alert('Homework published.');
+            alert('Homework published successfully.');
             e.target.reset();
             loadHomework();
         }
@@ -183,12 +268,12 @@
         async function loadHomework() {
             const res = await fetch(`/api/homework?grade=${encodeURIComponent(teacherData.grade)}`);
             const list = await res.json();
-            document.getElementById('hw-manage-list').innerHTML = list.map(h => `
+            document.getElementById('hw-manage-list').innerHTML = list.length ? list.map(h => `
                 <div class="p-2 bg-slate-50 border rounded text-xs flex justify-between items-center">
                     <div><b>${h.subject}</b>: ${h.title}</div>
                     <button onclick="deleteHomework(${h.id})" class="px-2 py-1 bg-red-600 text-white font-bold rounded">Delete</button>
                 </div>
-            `).join('');
+            `).join('') : '<p class="text-xs text-slate-400">No active homework posted.</p>';
         }
 
         async function deleteHomework(id) {
@@ -204,6 +289,8 @@
             const examType = document.getElementById('res-exam').value;
             const score = document.getElementById('res-score').value;
             const gradeLetter = document.getElementById('res-letter').value;
+
+            if (!studentName) return alert('Select a student first.');
 
             await fetch('/api/results', {
                 method: 'POST',
@@ -222,6 +309,8 @@
             const balance = document.getElementById('fee-balance').value;
             const status = parseFloat(balance) > 0 ? 'Balance Due' : 'Cleared';
 
+            if (!studentName) return alert('Select a student first.');
+
             await fetch('/api/fees', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -236,14 +325,14 @@
             const posts = await res.json();
             document.getElementById('tch-comm-feed').innerHTML = posts.map(p => `
                 <div class="p-3 bg-slate-50 border rounded text-xs">
-                    <b>${p.authorName} (${p.role})</b>: ${p.content}
+                    <b>${p.authorName} (${p.role.toUpperCase()})</b>: ${p.content}
                 </div>
             `).join('');
         }
 
         async function postTeacherCommunity() {
             const content = document.getElementById('tch-comm-input').value.trim();
-            if (!content) return;
+            if (!content) return alert('Enter a notice message first.');
             await fetch('/api/community', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
